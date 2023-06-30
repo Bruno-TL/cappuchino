@@ -4,11 +4,14 @@ import { styled } from "styled-components";
 
 const CartCount = styled.span`
   width: 17px;
-  heigth: 17px;
+  height: 17px;
+  border-radius: 100%;
   padding: 0 5px;
   font-size: 10px;
-  backgorund-color: var(--delete-color);
+
+  background-color: var(--delete-color);
   color: white;
+
   margin-left: -10px;
 `;
 
@@ -17,12 +20,13 @@ const Container = styled.div`
 `;
 
 export function CartControl() {
-  const { value } = useLocalStorage("cart", 1);
+  const { value } = useLocalStorage("cart-items", []);
+  console.log(value);
 
   return (
     <Container>
       <CartIcon />
-      {value.length && <CartCount>{value.length}</CartCount>}
+      {value.toString().length > 0 && <CartCount>{value}</CartCount>}
     </Container>
   );
 }
