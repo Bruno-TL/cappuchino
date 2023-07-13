@@ -1,3 +1,5 @@
+import { useFilter } from "@/hooks/useFilter";
+import { FilterType } from "@/types/filter-types";
 import { styled } from "styled-components";
 
 interface FilterItemProps {
@@ -19,6 +21,7 @@ const FilterItem = styled.li<FilterItemProps>`
   line-height: 22px;
   text-align: center;
   text-transform: uppercase;
+  cursor: pointer;
   color: var(--text-dark);
 
   border-bottom: ${(props) =>
@@ -26,11 +29,30 @@ const FilterItem = styled.li<FilterItemProps>`
 `;
 
 export function FilterByType() {
+  const { type, setType } = useFilter();
+  const handleCahngeType = (value: FilterType) => {
+    setType(value);
+  };
   return (
     <FilterList>
-      <FilterItem selected>Todos os produtos</FilterItem>
-      <FilterItem selected={false}>Camisetas</FilterItem>
-      <FilterItem selected={false}>Canecas</FilterItem>
+      <FilterItem
+        selected={type === FilterType.ALL}
+        onClick={() => handleCahngeType(FilterType.ALL)}
+      >
+        Todos os produtos
+      </FilterItem>
+      <FilterItem
+        selected={type === FilterType.SHIRT}
+        onClick={() => handleCahngeType(FilterType.SHIRT)}
+      >
+        Camisetas
+      </FilterItem>
+      <FilterItem
+        selected={type === FilterType.MUG}
+        onClick={() => handleCahngeType(FilterType.MUG)}
+      >
+        Canecas
+      </FilterItem>
     </FilterList>
   );
 }
